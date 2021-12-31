@@ -1,20 +1,21 @@
 import random
 
 
+def find_smallest(nums):
+    sml_idx = 0
+    sml_item = nums[sml_idx]
+    for idx, n in enumerate(nums):
+        if n < sml_item:
+            sml_idx = idx
+            sml_item = nums[idx]
+    return sml_idx
+
+
 def sort_squares(nums):
-    # if "sqr" not in nums:
-    #     nums = [n*n for n in nums]
-    #     nums.append("sqr")
-    if not nums:
-        return []
-    # Sort with `quick sort` and square num during sorting
-    mid = nums.pop(random.randrange(len(nums)))
-    right = []
-    left = []
-    for n in nums:
-        if n < mid:
-            left.append(n)
-        else:
-            right.append(n)
-    return sort_squares(left) + [mid*mid] + sort_squares(right)
+    result = []
+    sqr_nums = [n*n for n in nums]
+    for _ in range(len(nums)):
+        sml_idx = find_smallest(sqr_nums)
+        result.append(sqr_nums.pop(sml_idx))
+    return result
  
